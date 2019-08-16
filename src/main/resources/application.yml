@@ -1,0 +1,14 @@
+server.port: 8090
+
+
+## PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/recipe-holder
+    username: "postgres"
+    password: "000000009"
+
+#drop n create table again, good for testing, comment this in production
+  jpa:
+    hibernate.ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
