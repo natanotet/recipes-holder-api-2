@@ -1,5 +1,6 @@
 package org.fasttrackit.recipesholderapi.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.recipesholderapi.domanin.Recipe;
 import org.fasttrackit.recipesholderapi.exception.ResourceNotFoundException;
 import org.fasttrackit.recipesholderapi.persistence.RecipeRepository;
@@ -16,21 +17,24 @@ public class RecipeService {
 
 
     private final RecipeRepository recipeRepository;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository) {
+    public RecipeService(RecipeRepository recipeRepository, ObjectMapper objectMapper) {
         this.recipeRepository = recipeRepository;
+        this.objectMapper = objectMapper;
     }
 
     public Recipe createRecipe(CreateRecipeRequest request) {
 
         LOGGER.info ("Creating Recipe {}", request);
 
-        Recipe recipe = new Recipe();
-        recipe.setRecipeName(request.getRecipeName());
-        recipe.setRecipeIngredients(request.getRecipeIngredients());
-        recipe.setRecipeHowTo(request.getRecipeHowTo());
-        recipe.setRecipeImagePath(request.getRecipeImagePath());
+        Recipe recipe = objectMapper.convertValue(request, Recipe.class);
+//        Recipe recipe = new Recipe();
+//        recipe.setRecipeName(request.getRecipeName());
+//        recipe.setRecipeIngredients(request.getRecipeIngredients());
+//        recipe.setRecipeHowTo(request.getRecipeHowTo());
+//        recipe.setRecipeImagePath(request.getRecipeImagePath());
 
         return recipeRepository.save(recipe);
     }
