@@ -3,16 +3,23 @@ package org.fasttrackit.recipesholderapi.domanin;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
-public class Recipes {
+public class Recipe {
 
     @Id
     @GeneratedValue
     private Long id;
+    //aceasta adnotare presupune ca field-urile din DB sa nu fie nule
+    @NotNull
     private String recipeName;
+    @NotNull
     private String recipeIngredients;
+    @NotNull
     private String recipeHowTo;
+    @NotNull
     private String recipeImagePath;
 
     public Long getId() {
