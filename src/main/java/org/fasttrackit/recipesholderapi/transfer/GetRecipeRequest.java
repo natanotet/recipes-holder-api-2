@@ -28,8 +28,7 @@ public class GetRecipeRequest {
     public String toString() {
         return "GetRecipeRequest{" +
                 "partiaName='" + partiaName + '\'' +
+                ", partialName2='" + partialName2 + '\'' +
                 '}';
     }
-
-
 }
