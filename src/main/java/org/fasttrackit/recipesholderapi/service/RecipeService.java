@@ -5,8 +5,10 @@ import org.fasttrackit.recipesholderapi.domanin.Recipe;
 import org.fasttrackit.recipesholderapi.exception.ResourceNotFoundException;
 import org.fasttrackit.recipesholderapi.persistence.RecipeRepository;
 import org.fasttrackit.recipesholderapi.transfer.CreateRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.UpdateRecipeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,26 @@ public class RecipeService {
                 () -> new ResourceNotFoundException(
                         "Recipe" + id + " does not exist"
                 ));
+    }
+
+    public Recipe updateRecipe(long id, UpdateRecipeRequest request) throws ResourceNotFoundException {
+
+        LOGGER.info("Updatedinf recipe {} with {}", id, request);
+
+        Recipe recipe = getRecipe(id);
+
+        BeanUtils.copyProperties(request, recipe);
+
+        return recipeRepository.save(recipe);
+    }
+
+    public void deteleRecipe(long id){
+        LOGGER.info("deleting recipe {} ", id);
+
+        recipeRepository.deleteById(id);
+
+        LOGGER.info("deleted recipe {} ", id);
+
     }
 
 }
