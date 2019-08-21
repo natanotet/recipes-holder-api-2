@@ -2,19 +2,23 @@ package org.fasttrackit.recipesholderapi.web;
 
 
 import org.fasttrackit.recipesholderapi.domanin.Recipe;
+import org.fasttrackit.recipesholderapi.exception.ResourceNotFoundException;
 import org.fasttrackit.recipesholderapi.service.RecipeService;
+import org.fasttrackit.recipesholderapi.transfer.CreateRecipeRequest;
 import org.fasttrackit.recipesholderapi.transfer.GetRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.UpdateRecipeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping(value = "/recipes")
+@CrossOrigin
 public class RecipeController {
 
     private final RecipeService recipeService;
@@ -32,6 +36,32 @@ public class RecipeController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    @PostMapping
+    public ResponseEntity<Recipe>createProduct(@RequestBody @Valid CreateRecipeRequest request){
+        Recipe response = recipeService.createRecipe(request);
+        return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteRecipe(@PathVariable Long id){
+        recipeService.deteleRecipe(id);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity <Recipe> getRecipe(@PathVariable("id") Long id) throws ResourceNotFoundException {
+        Recipe recipe = recipeService.getRecipe(id);
+        return new ResponseEntity<>(recipe, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Recipe> updateRecipe(@PathVariable("id") Long id, @RequestBody@Valid UpdateRecipeRequest request) throws ResourceNotFoundException {
+        Recipe recipe = recipeService.updateRecipe(id, request);
+
+        return new ResponseEntity(recipe, HttpStatus.NO_CONTENT);
+    }
+
+
 
 
 }

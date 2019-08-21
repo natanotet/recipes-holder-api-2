@@ -47,7 +47,7 @@ public class UpdateRecipeRequest {
 
     @Override
     public String toString() {
-        return "CreateRecipeRequest{" +
+        return "UpdateRecipeRequest{" +
                 "recipeName='" + recipeName + '\'' +
                 ", recipeIngredients='" + recipeIngredients + '\'' +
                 ", recipeHowTo='" + recipeHowTo + '\'' +

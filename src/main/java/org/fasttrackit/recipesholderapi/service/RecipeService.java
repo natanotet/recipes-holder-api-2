@@ -55,7 +55,7 @@ public class RecipeService {
 
     public Recipe updateRecipe(long id, UpdateRecipeRequest request) throws ResourceNotFoundException {
 
-        LOGGER.info("Updatedinf recipe {} with {}", id, request);
+        LOGGER.info("Updateding recipe {} with {}", id, request);
 
         Recipe recipe = getRecipe(id);
 
