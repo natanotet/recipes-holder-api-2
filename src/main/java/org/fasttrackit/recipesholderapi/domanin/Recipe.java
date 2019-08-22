@@ -3,7 +3,10 @@ package org.fasttrackit.recipesholderapi.domanin;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -21,6 +24,11 @@ public class Recipe {
     private String recipeHowTo;
     @NotNull
     private String recipeImagePath;
+
+
+
+    @ManyToMany(mappedBy = "recipes")
+    private Set<FavoriteRecipes> favoriteRecipesSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -60,5 +68,13 @@ public class Recipe {
 
     public void setRecipeImagePath(String recipeImagePath) {
         this.recipeImagePath = recipeImagePath;
+    }
+
+    public Set<FavoriteRecipes> getFavoriteRecipesSet() {
+        return favoriteRecipesSet;
+    }
+
+    public void setFavoriteRecipesSet(Set<FavoriteRecipes> favoriteRecipesSet) {
+        this.favoriteRecipesSet = favoriteRecipesSet;
     }
 }

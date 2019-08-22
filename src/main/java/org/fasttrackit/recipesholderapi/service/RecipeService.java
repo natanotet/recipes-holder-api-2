@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.fasttrackit.recipesholderapi.domanin.Recipe;
 import org.fasttrackit.recipesholderapi.exception.ResourceNotFoundException;
 import org.fasttrackit.recipesholderapi.persistence.RecipeRepository;
-import org.fasttrackit.recipesholderapi.transfer.CreateRecipeRequest;
-import org.fasttrackit.recipesholderapi.transfer.GetRecipeRequest;
-import org.fasttrackit.recipesholderapi.transfer.UpdateRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.Recipe.CreateRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.Recipe.GetRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.Recipe.UpdateRecipeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -83,10 +83,9 @@ public class RecipeService {
         } else if (request.getPartialName2() != null) {
 
             return recipeRepository.findByRecipeNameContaining(request.getPartiaName(), pageable);
-
         }
-
-
         return recipeRepository.findAll(pageable);
     }
+
+
 }

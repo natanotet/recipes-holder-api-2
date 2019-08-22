@@ -1,8 +1,8 @@
-package org.fasttrackit.recipesholderapi.transfer;
+package org.fasttrackit.recipesholderapi.transfer.Recipe;
 
 import javax.validation.constraints.NotNull;
 
-public class UpdateRecipeRequest {
+public class CreateRecipeRequest {
 
     @NotNull
     private String recipeName;
@@ -47,7 +47,7 @@ public class UpdateRecipeRequest {
 
     @Override
     public String toString() {
-        return "UpdateRecipeRequest{" +
+        return "CreateRecipeRequest{" +
                 "recipeName='" + recipeName + '\'' +
                 ", recipeIngredients='" + recipeIngredients + '\'' +
                 ", recipeHowTo='" + recipeHowTo + '\'' +

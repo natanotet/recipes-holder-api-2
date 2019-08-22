@@ -1,4 +1,4 @@
-package org.fasttrackit.recipesholderapi.transfer;
+package org.fasttrackit.recipesholderapi.transfer.Recipe;
 
 import org.springframework.data.domain.Page;
 

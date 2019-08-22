@@ -1,17 +1,7 @@
-package org.fasttrackit.recipesholderapi.domanin;
+package org.fasttrackit.recipesholderapi.transfer.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class UserResponse {
 
-
-@Entity
-@Table(name="\"User\"")
-        public class User {
-
-    @Id
-    @GeneratedValue
     private Long id;
     private String userName;
 
@@ -29,5 +19,13 @@ import javax.persistence.Table;
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "UserResponse{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                '}';
     }
 }
