@@ -37,7 +37,12 @@ public class FavoriteRecipesService {
 
         User user = userService.getUser(request.getUserId());
 
-        FavoriteRecipes favorite = new FavoriteRecipes();
+        FavoriteRecipes favorite = favoriteRecipesRepository.findById(request.getUserId()).orElse(
+                (new FavoriteRecipes()));
+
+        if (favorite.getUser() == null) {
+            favorite.setUser(user);
+        }
         favorite.setUser(user);
 
         Recipe recipe = recipeService.getRecipe(request.getRecipeId());
@@ -50,7 +55,7 @@ public class FavoriteRecipesService {
     public FavoritesResponse getFavoriteRecipes(Long userId) throws ResourceNotFoundException {
 
         FavoriteRecipes favoriteRecipes = favoriteRecipesRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Favorite recipe " + " does niot exist"));
+                .orElseThrow(() -> new ResourceNotFoundException("Favorite recipe " + userId + " does niot exist"));
 
         UserResponse userResponse = new UserResponse();
         userResponse.setId(favoriteRecipes.getUser().getId());

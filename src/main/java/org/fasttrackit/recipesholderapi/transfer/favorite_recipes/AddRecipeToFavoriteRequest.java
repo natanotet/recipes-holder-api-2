@@ -1,8 +1,12 @@
 package org.fasttrackit.recipesholderapi.transfer.favorite_recipes;
 
+import javax.validation.constraints.NotNull;
+
 public class AddRecipeToFavoriteRequest {
 
+        @NotNull
         private Long userId;
+        @NotNull
         private Long recipeId;
 
     public Long getUserId() {
