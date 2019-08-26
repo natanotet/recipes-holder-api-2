@@ -6,6 +6,7 @@ import org.fasttrackit.recipesholderapi.exception.ResourceNotFoundException;
 import org.fasttrackit.recipesholderapi.service.RecipeService;
 import org.fasttrackit.recipesholderapi.transfer.Recipe.CreateRecipeRequest;
 import org.fasttrackit.recipesholderapi.transfer.Recipe.GetRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.Recipe.RecipeResponse;
 import org.fasttrackit.recipesholderapi.transfer.Recipe.UpdateRecipeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,9 +31,9 @@ public class RecipeController {
 
     //this is an endpoint
     @GetMapping
-    public ResponseEntity<Page<Recipe>> getRecipes(GetRecipeRequest request, Pageable pageable){
+    public ResponseEntity<Page<RecipeResponse>> getRecipes(GetRecipeRequest request, Pageable pageable){
 
-        Page<Recipe> response = recipeService.getRecipes(request,pageable);
+        Page<RecipeResponse> response = recipeService.getRecipes(request,pageable);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

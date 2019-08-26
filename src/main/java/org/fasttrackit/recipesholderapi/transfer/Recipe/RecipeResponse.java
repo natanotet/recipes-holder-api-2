@@ -1,11 +1,21 @@
 package org.fasttrackit.recipesholderapi.transfer.Recipe;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 public class RecipeResponse {
 
     private Long id;
     private String recipeName;
+    public String getRecipeImagePath() {
+        return recipeImagePath;
+    }
+
+    public void setRecipeImagePath(String recipeImagePath) {
+        this.recipeImagePath = recipeImagePath;
+    }
+
+    private String recipeImagePath;
 
     @Override
     public boolean equals(Object o) {

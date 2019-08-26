@@ -6,14 +6,19 @@ import org.fasttrackit.recipesholderapi.exception.ResourceNotFoundException;
 import org.fasttrackit.recipesholderapi.persistence.RecipeRepository;
 import org.fasttrackit.recipesholderapi.transfer.Recipe.CreateRecipeRequest;
 import org.fasttrackit.recipesholderapi.transfer.Recipe.GetRecipeRequest;
+import org.fasttrackit.recipesholderapi.transfer.Recipe.RecipeResponse;
 import org.fasttrackit.recipesholderapi.transfer.Recipe.UpdateRecipeRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RecipeService {
@@ -73,19 +78,36 @@ public class RecipeService {
 
     }
 
-    public Page<Recipe> getRecipes(GetRecipeRequest request, Pageable pageable) {
+    public Page<RecipeResponse> getRecipes(GetRecipeRequest request, Pageable pageable) {
 
         LOGGER.info("Retriving Recipes {} ", request);
 
+        Page<Recipe> recipes;
+        List<RecipeResponse> recipeResponses = new ArrayList<>();
+
         if (request.getPartiaName() != null && request.getPartialName2() != null) {
 
-            return recipeRepository.findRecipesByRecipeNameContainingAndRecipeIngredients(request.getPartialName2(), pageable);
+            recipes= recipeRepository.findRecipesByRecipeNameContainingAndRecipeIngredients(request.getPartialName2(), pageable);
         } else if (request.getPartialName2() != null) {
 
-            return recipeRepository.findByRecipeNameContaining(request.getPartiaName(), pageable);
+            recipes = recipeRepository.findByRecipeNameContaining(request.getPartiaName(), pageable);
+        } else {
+            recipes = recipeRepository.findAll(pageable);
         }
-        return recipeRepository.findAll(pageable);
+
+        recipes.getContent().forEach(recipe -> {
+            RecipeResponse recipeResponse = new RecipeResponse();
+            recipeResponse.setId(recipe.getId());
+            recipeResponse.setRecipeName(recipe.getRecipeName());
+            recipeResponse.setRecipeImagePath(recipe.getRecipeImagePath());
+
+            recipeResponses.add(recipeResponse);
+
+        });
+
+        return new PageImpl<>(recipeResponses, pageable, recipes.getTotalElements());
     }
+
 
 
 }
